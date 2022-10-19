@@ -21,7 +21,7 @@ const managerPrompts = [
     },
     {
         type: "input",
-        name: "employeeID",
+        name: "employeeId",
         message: "What is the manager's ID number?",
     },
     {
@@ -37,7 +37,7 @@ const managerPrompts = [
 ];
 
 function managerInputs() {
-    inquirer.createPromptModule(managerPrompts).then((answers) => {
+    inquirer.prompt(managerPrompts).then((answers) => {
         console.log(answers);
         const manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.managerOfficeNum)
         team.push(manager)
@@ -64,7 +64,7 @@ const engineerPrompts = [
     },
     {
         type: "input",
-        name: "engineerID",
+        name: "engineerId",
         message: "What is the engineer's employee number",
     },
     {
@@ -74,7 +74,7 @@ const engineerPrompts = [
     },
     {
         type: "input",
-        name: "gitUser",
+        name: "gitUn",
         message: "What is the engineer's GitHub username?",
     },
 ];
@@ -88,7 +88,7 @@ const internPrompts = [
     },
     {
         type: "input",
-        name: "internID",
+        name: "internId",
         message: "What is the intern's employee number?",
     },
     {
@@ -119,7 +119,7 @@ function promptMenu() {
 }
 
 // create functions that would be transferred into HTML document.
-function engineerPrompts() {
+function engineerPrompt() {
     inquirer.prompt(engineerPrompts).then((engineerResponses) => {
         const engineer = new Engineer(engineerResponses.engineerName, engineerResponses.engineerID, engineerResponses.email, engineerResponses.gitUser)
         team.push(engineer)
@@ -127,7 +127,7 @@ function engineerPrompts() {
     });
 }
 
-function internPrompts() {
+function internPrompt() {
     inquirer.prompt(internPrompts).then((internResponses) => {
         const intern = new Intern(internResponses.internName, internResponses.internID, internResponses.email, internResponses.school)
         team.push(intern)
@@ -145,5 +145,4 @@ function buildHTML() {
         }
     })
 }
-
-managerPrompts();
+managerInputs();
