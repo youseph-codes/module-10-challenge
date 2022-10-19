@@ -98,7 +98,7 @@ const internPrompts = [
     },
     {
         type: "input",
-        name: "schoolName",
+        name: "school",
         message: "What school did the intern go to?",
     },
 ];
@@ -129,7 +129,7 @@ function engineerPrompts() {
 
 function internPrompts() {
     inquirer.prompt(internPrompts).then((internResponses) => {
-        const intern = new Intern(internResponses.internName, internResponses.internID, internResponses.email, internResponses.schoolName)
+        const intern = new Intern(internResponses.internName, internResponses.internID, internResponses.email, internResponses.school)
         team.push(intern)
         promptMenu();
     });
