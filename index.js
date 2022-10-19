@@ -1,145 +1,149 @@
-// defining team variables
+// defining variables
+const inquirer = require("inquirer");
+
+// defining employees
+const Employee = require("./lib/Employee");
+const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
-const Manager = require("./lib/Manager");
 
-// other required variables
-const inquirer = require("inquire");
-const path = require("path");
+// defining technical variables
+const generateHtml = require("./src/template");
 const fs = require("fs");
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
-const generateTeam = require("./src/template")
+const team = []
 
-teamArray = [];
+// create manager prompts
+const managerPrompts = [
+    {
+        type: "input",
+        name: "manageName",
+        message: "What is the manager's name?",
+    },
+    {
+        type: "input",
+        name: "employeeID",
+        message: "What is the manager's ID number?",
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the manager's email?",
+    },
+    {
+        type: "input",
+        name: "officeNumber",
+        message: "What is the manager's office number?",
+    },
+];
 
-// app running functionalities
-
-function runApp () {
-    function createTeam () {
-        inquirer.prompt([{
-            type: "list",
-            message: "What type of employee is joining the team?",
-            name: "addEmployee",
-            choices: ["Manager", "Engineer", "Intern", "No team members added at this time."]
-        }]).then(function(userInput) {
-            switch(userInput.addEmployee) {
-                case "Manager":
-                    addManager();
-                    break;
-                case "Engineer":
-                    addEngineer();
-                    break;
-                case "Intern":
-                    addIntern();
-                    break;
-
-                default:
-                    htmlBuilder();
-            }
-        })
-    }
-
-    // the use of OOP functions [MANAGER]
-    function addManager() {
-        inquirer.prompt ([
-            {
-                type: "input",
-                name: "managerName",
-                message: "What is the name of the manager?"
-            },
-            {
-                type: "input",
-                name: "managerID",
-                message: "What is the ID number of the manager?"
-            },
-            {
-                type: "input",
-                name: "managerEmailAddress",
-                message: "What is the email address of the manager?",
-            },
-            {
-                type: "input",
-                name: "managerOffceNumber",
-                message: "What is the manager's office number?",
-            }
-        ]).then(answers => {
-            const manager = new manager(answers.managerName, answers.managerID, answers.managerEmailAddress, answers.managerOfficeNumber);
-            teamArray.push(manager);
-            createTeam();
-        });
-    }
-
-    // the use of OOP functions [ENGINEER]
-    function addEngineer() {
-        inquirer.prompt([
-            {
-                type: "input",
-                name: "engineerName",
-                message: "What is the name of the engineer?"
-            },
-            {
-                type: "input",
-                name: "engineerID",
-                message: "What is the ID number of the engineer?"
-            },
-            {
-                type: "input",
-                name: "engineerEmailAddress",
-                message: "What is the email address of the engineer?"
-            },
-            {
-                type: "input",
-                name: "engineerOfficeNumber",
-                message: "What is the engineer's office number?"
-            },
-            {
-                type: "input",
-                name: "engineerGitHub",
-                message: "What is the engineer's GitHub username?"
-            },
-        ]).then(answers => {
-            const engineer = new Engineer(answers.engineerName, answers.engineerID, answers.engineerEmailAddress, answers.engineerOfficeNumber, answers.engineerGitHub);
-            teamArray.push(engineer);
-            createTeam();
-        });
-    }
-
-    // the use of OOP functions [INTERN]
-    function addIntern() {
-        inquirer.prompt([
-            {
-                type: "input",
-                name: "InternName",
-                message: "What is the intern's name?"
-            },
-            {
-                type: "input",
-                name: "InternID",
-                message: "What is the intern's employee ID number?"
-            },
-            {
-                type: "input",
-                name: "internEmailAddress",
-                message: "What is the intern's email address?"
-            },
-            {
-                type: "input",
-                name: "internSchool",
-                message: "What school is the intern attending?"
-            },
-        ]).then(answers => {
-            const intern = new Intern(answers.internName, answers.internID, answers.internEmailAddress, answers.internSchool);
-            teamArray.push(Intern);
-            createTeam();
-        });
-    }
-
-    function htmlBuilder() {
-        console.log("The team was created successfully!")
-        fs.writeFileSync(outputPath, generateTeam(teamArray), "UTF-8")
-    }
-    createTeam();
+function managerInputs() {
+    inquirer.createPromptModule(managerPrompts).then((answers) => {
+        console.log(answers);
+        const manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.managerOfficeNum)
+        team.push(manager)
+        promptMenu();
+    });
 }
 
-runApp();
+// gives option to add more employees
+const employeeQuestions = [
+    {
+        type: "list",
+        name: "otherEmployees",
+        message: "Are there any other employees to add?",
+        choices: ["Engineer", "Intern", "No one else to add"],
+    },
+];
+
+// create engineer prompts
+const engineerPrompts = [
+    {
+        type: "input",
+        name: "engineerName",
+        message: "What is the engineer's name?",
+    },
+    {
+        type: "input",
+        name: "engineerID",
+        message: "What is the engineer's employee number",
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the engineer's email?",
+    },
+    {
+        type: "input",
+        name: "gitUser",
+        message: "What is the engineer's GitHub username?",
+    },
+];
+
+// create intern prompts
+const internPrompts = [
+    {
+        type: "input",
+        name: "internName",
+        message: "What is the intern's name?",
+    },
+    {
+        type: "input",
+        name: "internID",
+        message: "What is the intern's employee number?",
+    },
+    {
+        type: "input",
+        name: "email",
+        message: "What is the intern's email?",
+    },
+    {
+        type: "input",
+        name: "schoolName",
+        message: "What school did the intern go to?",
+    },
+];
+
+function promptMenu() {
+    inquirer.prompt(employeeQuestions).then((answers) => {
+        console.log(answers);
+        if (answers.otherEmployees === "Engineer") {
+            engineerInputs();
+        }
+        if (answers.otherEmployees === "Intern") {
+            internInputs();
+        }
+        if (answers.otherEmployees === "No one else to add") {
+            buildHTML(team)
+        }
+    });
+}
+
+// create functions that would be transferred into HTML document.
+function engineerPrompts() {
+    inquirer.prompt(engineerPrompts).then((engineerResponses) => {
+        const engineer = new Engineer(engineerResponses.engineerName, engineerResponses.engineerID, engineerResponses.email, engineerResponses.gitUser)
+        team.push(engineer)
+        promptMenu();
+    });
+}
+
+function internPrompts() {
+    inquirer.prompt(internPrompts).then((internResponses) => {
+        const intern = new Intern(internResponses.internName, internResponses.internID, internResponses.email, internResponses.schoolName)
+        team.push(intern)
+        promptMenu();
+    });
+}
+
+// creates HTML file
+function buildHTML() {
+    fs.writeFile("./dist/index.html", generateHtml(team), function(error) {
+        if(error) {
+            console.log(error)
+        } else {
+            console.log("HTML succeffully created!")
+        }
+    })
+}
+
+managerPrompts();
