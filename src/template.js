@@ -1,8 +1,7 @@
 // create function to generate HTML file
 function generateHtml(team) {
     console.log(team)
-    return
-    `
+    return `
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -19,9 +18,9 @@ function generateHtml(team) {
         <div class="d-flex justify-content-around p-3">
         ${team.map(teamMember => {
             let specialAttribute
-            if(teamMember.getRole() === "Manager") specialAttribute = teamMember.getOffice()
-            if(teamMember.getRole() === "Engineer") specialAttribute = teamMember.getGithub()
-            if(teamMember.getRole() === "Intern") specialAttribute = teamMember.getSchool()
+            if(teamMember.getRole() === "Manager") specialAttribute = teamMember.()
+            if(teamMember.getRole() === "Engineer") specialAttribute = teamMember.()
+            if(teamMember.getRole() === "Intern") specialAttribute = teamMember.()
             return`
               <div class="card h-100 m-3 w-100">
             <div class="card-body text-bg-info text-center">
@@ -37,10 +36,8 @@ function generateHtml(team) {
             `
         }) }
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     </body>
-    </html>
-    `
+    </html> `
     }
     
     module.exports = generateHtml

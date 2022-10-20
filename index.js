@@ -17,22 +17,22 @@ const managerPrompts = [
     {
         type: "input",
         name: "manageName",
-        message: "What is the manager's name?",
+        message: "What is your name?",
     },
     {
         type: "input",
         name: "employeeId",
-        message: "What is the manager's ID number?",
+        message: "What is your ID number?",
     },
     {
         type: "input",
         name: "email",
-        message: "What is the manager's email?",
+        message: "What is your email address?",
     },
     {
         type: "input",
         name: "officeNumber",
-        message: "What is the manager's office number?",
+        message: "What is your office number?",
     },
 ];
 
