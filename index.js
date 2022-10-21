@@ -8,7 +8,7 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
 // defining technical variables
-const generateHtml = require("./src/template");
+const template = require("./src/template");
 const fs = require("fs");
 const team = []
 
@@ -16,22 +16,22 @@ const team = []
 const managerPrompts = [
     {
         type: "input",
-        name: "manageName",
+        name: "managerName",
         message: "What is your name?",
     },
     {
         type: "input",
-        name: "employeeId",
+        name: "managerID",
         message: "What is your ID number?",
     },
     {
         type: "input",
-        name: "email",
+        name: "managerEmail",
         message: "What is your email address?",
     },
     {
         type: "input",
-        name: "officeNumber",
+        name: "managerOfficeNum",
         message: "What is your office number?",
     },
 ];
@@ -107,10 +107,10 @@ function promptMenu() {
     inquirer.prompt(employeeQuestions).then((answers) => {
         console.log(answers);
         if (answers.otherEmployees === "Engineer") {
-            engineerInputs();
+            engineerPrompt();
         }
         if (answers.otherEmployees === "Intern") {
-            internInputs();
+            internPrompt();
         }
         if (answers.otherEmployees === "No one else to add") {
             buildHTML(team)
@@ -137,7 +137,7 @@ function internPrompt() {
 
 // creates HTML file
 function buildHTML() {
-    fs.writeFile("./dist/index.html", generateHtml(team), function(error) {
+    fs.writeFile("./dist/index.html", template(team), function(error) {
         if(error) {
             console.log(error)
         } else {
