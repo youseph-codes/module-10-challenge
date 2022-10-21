@@ -18,7 +18,7 @@ function template(team) {
         <div class="d-flex justify-content-around p-3">
         ${team.map(teamMember => {
             let specialAttribute
-            if(teamMember.getRole() === "Manager") specialAttribute = teamMember.getmanagerOfficeNum()
+            if(teamMember.getRole() === "Manager") specialAttribute = teamMember.getOffice()
             if(teamMember.getRole() === "Engineer") specialAttribute = teamMember.getGithub()
             if(teamMember.getRole() === "Intern") specialAttribute = teamMember.getSchool()
             return`
@@ -29,7 +29,7 @@ function template(team) {
             </div>
             <ul class="list-group list-group-flush text-center">
               <li class="list-group-item">${teamMember.getEmail()}</li>
-              <li class="list-group-item">${teamMember.getId()}</li>
+              <li class="list-group-item">${teamMember.getID()}</li>
               <li class="list-group-item">${specialAttribute}</li>
             </ul>
             </div>
