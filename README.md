@@ -10,7 +10,7 @@
   You'll run node index.js, and you (as the manager running the application) will fill out your prompted questions , along with anyone else you'd like to add.
 
   # Live Video
-  
+  https://drive.google.com/file/d/1tjOeVHNIGIC1blowO50p2b5Kac9--Hw5/view
 
   # Questions
   * GitHub Username: github.com/youseph-codes
