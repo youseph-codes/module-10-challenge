@@ -5,6 +5,7 @@
   
   # Installation
   Inquirer version 8.2.4
+  Jest
 
   # Usage
   You'll run node index.js, and you (as the manager running the application) will fill out your prompted questions , along with anyone else you'd like to add.
